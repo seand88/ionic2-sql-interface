@@ -1,2 +1,5 @@
 # ionic2-sql-interface
-Ionic2 sql interface for using sqlite in browser and native. Uses sql.js in browser, and native sqlite on mobile
+Creating this since ionic2 rc0 removed the query interface since websql is depreciated.
+
+Using sql.js should continue to work as browsers move away from websql
+
