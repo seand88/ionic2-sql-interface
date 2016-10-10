@@ -31,6 +31,14 @@ const win: any = window;
  * }
  *
  */
+
+/** Utility functions
+* TODO: MOVE THESE TO A UTIL CLASS LATER
+*/
+export const isFunction = (val: any) => typeof val === 'function';
+export const isObject = (val: any) => typeof val === 'object';
+export const isArray = Array.isArray;
+
 export class SqlStorage {
   static BACKUP_LOCAL = 2;
   static BACKUP_LIBRARY = 1;
@@ -39,9 +47,8 @@ export class SqlStorage {
   private _db: any;
 
   constructor(options = {}) {
-    super();
 
-    let dbOptions = defaults(options, {
+    let dbOptions = this.defaults(options, {
       name: DB_NAME,
       backupFlag: SqlStorage.BACKUP_LOCAL,
       existingDatabase: false
@@ -50,7 +57,7 @@ export class SqlStorage {
     if (win.sqlitePlugin) {
       let location = this._getBackupLocation(dbOptions.backupFlag);
 
-      this._db = win.sqlitePlugin.openDatabase(assign({
+      this._db = win.sqlitePlugin.openDatabase(this.assign({
         name: dbOptions.name,
         location: location,
         createFromLocation: dbOptions.existingDatabase ? 1 : 0
@@ -152,7 +159,7 @@ export class SqlStorage {
   assign(...args: any[]): any {
   if (typeof Object.assign !== 'function') {
     // use the old-school shallow extend method
-    return _baseExtend(args[0], [].slice.call(args, 1), false);
+    return this._baseExtend(args[0], [].slice.call(args, 1), false);
   }
 
   // use the built in ES6 Object.assign method
@@ -178,5 +185,25 @@ defaults(dest: any, ...args: any[]) {
   return dest;
 }
 
+_baseExtend(dst: any, objs: any, deep: boolean) {
+  for (var i = 0, ii = objs.length; i < ii; ++i) {
+    var obj = objs[i];
+    if (!obj || !isObject(obj) && !isFunction(obj)) continue;
+    var keys = Object.keys(obj);
+    for (var j = 0, jj = keys.length; j < jj; j++) {
+      var key = keys[j];
+      var src = obj[key];
+
+      if (deep && isObject(src)) {
+        if (!isObject(dst[key])) dst[key] = isArray(src) ? [] : {};
+        this._baseExtend(dst[key], [src], true);
+      } else {
+        dst[key] = src;
+      }
+    }
+  }
+
+  return dst;
+}
 
 }
