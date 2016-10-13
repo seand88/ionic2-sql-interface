@@ -13,7 +13,7 @@ const win: any = window;
  *
  * @usage
  ```js
- * let storage = new Storage(SqlStorage, options);
+ * let storage = new SqlStorage(options);
  * storage.set('name', 'Max');
  * storage.get('name').then((name) => {
  * });
