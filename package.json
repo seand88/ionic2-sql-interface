@@ -1,0 +1,26 @@
+{
+  "name": "ionic-sql-interface",
+  "version": "1.0.0",
+  "description": "ionic2 sql interface drop in replacement for the query method",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seand88/ionic2-sql-interface.git"
+  },
+  "keywords": [
+    "ionic",
+    "ionic2",
+    "sql",
+    "interface",
+    "query"
+  ],
+  "author": "sean diamond",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/seand88/ionic2-sql-interface/issues"
+  },
+  "homepage": "https://github.com/seand88/ionic2-sql-interface#readme"
+}
